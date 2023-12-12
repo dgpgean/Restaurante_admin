@@ -34,6 +34,9 @@ RUN pecl install -o -f redis \
     &&  rm -rf /tmp/pear \
     &&  docker-php-ext-enable redis
 
+RUN npm install sweetalert2
+RUN npm install -D tailwindcss postcss autoprefixer
+RUN npx tailwindcss init -p -y
 # Set working directory
 WORKDIR /var/www
 

@@ -1,0 +1,39 @@
+#body{
+    background-color: white;
+    margin-bottom: 20px;
+}
+
+button.form-control{
+    margin: 33px 0 33px 0;
+}
+
+form div{
+    width: 70%;
+}
+
+form div div{
+    margin: 0;
+}
+
+
+
+table{
+    width: 100%;
+}
+thead, tr, th, td{
+    padding: 10px;
+}
+
+@media screen and (max-width: 500px){
+	form div{
+        width: 100%;
+    }
+    #name-price-image{
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+    #image-product{
+        margin: 10px 0 20px 0;
+        height: 140px;
+    }
+}

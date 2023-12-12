@@ -1,3 +1,5 @@
+@vite('resources/css/home.css')
+
 @extends('adminlte::page')
 
 @section('title', 'Dashboard')
@@ -7,11 +9,15 @@
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
+    <div id="body">
+        @include('partials.card_progress')
+        @include('partials.card_progress')
+        @include('partials.card_progress')
+    </div>
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+    <link rel="stylesheet" href="/css/home.css">
 @stop
 
 @section('js')

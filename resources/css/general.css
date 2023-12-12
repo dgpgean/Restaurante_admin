@@ -1,0 +1,30 @@
+/* ============DISPLAY FLEX================ */
+.flex{
+    display: flex;
+}
+.jc{
+    justify-content: center;
+}
+.ac{
+    align-items: center;
+}
+.fd-cl{
+    flex-direction: column;
+}
+.form-control{
+    margin: 5px 0 5px 0;
+}
+
+.space-b{
+    justify-content: space-between;
+}
+label{
+    margin-bottom: 0px !important;
+}
+
+:root{
+    --blue-default: #007bff;
+}
+/* nav span.relative, nav a.relative {
+    display: none;
+} */
