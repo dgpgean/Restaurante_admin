@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\DTO\{CategoryCreateDTO};
+use App\DTO\{CategoryCreateDTO, CategoryUpdateDTO};
 use App\Http\Requests\StoreAndUpdateCategory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -41,5 +41,15 @@ class Category extends Model
             $result->delete();
         }
         return $result;
+    }
+
+    public function editCategory(CategoryUpdateDTO $dto): stdClass|null
+    {
+        if (!$category = $this->find($dto->id)) {
+            return null;
+        }
+        $category->update((array) $dto);
+
+        return (object) $category->toArray();
     }
 }

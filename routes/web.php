@@ -28,6 +28,7 @@ Route::prefix('categories/')->group(function () {
     Route::post('all', [CategoryController::class, 'index'])->name('categories.index');
     Route::get('new', [CategoryController::class, 'new'])->name('categories.new');
     Route::post('new', [CategoryController::class, 'store'])->name('categories.store');
+    Route::put('update/{id}', [CategoryController::class, 'update'])->name('categories.update');
     Route::delete('delete/{id}', [CategoryController::class, 'remove'])->name('categories.delete');
 });
 

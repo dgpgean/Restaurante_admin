@@ -24,6 +24,7 @@ class StoreAndUpdateCategory extends FormRequest
     {
         $rules = [
             'name' => ['required', 'min:3', 'unique:categories'],
+
         ];
 
         if ($this->method() == 'PUT') {

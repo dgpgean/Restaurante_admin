@@ -15,6 +15,7 @@
     <button id="btnNew" class="text-blue-500">Adicionar categoria</button>
     <input type="hidden" id="category_new" value="{{ route('categories.new') }}">
     <input type="hidden" id="category_delete" value="{{ route('categories.delete', '') }}">
+    <input type="hidden" id="category_update" value="{{ route('categories.update', '') }}">
     <div class="flex items-baseline mt-3">
         <form class="flex w-full" action="{{ route('categories.index') }}" method="POST">
             @csrf
@@ -38,8 +39,9 @@
                     <tr>
                         <th>{{ $category->id }}</th>
                         <th>{{ $category->name }}</th>
-                        <th class="flex items-center">
-                            <a href="" class="btn">Editar</a>
+                        <th class="flex items-center gap-2">
+                            <button value="{{ $category->id . ',' . $category->name }}" href=""
+                                class="btnEdit">Editar</button>
                             <button value="{{ $category->id }}" class="btnDelete">Excluir</button>
                         </th>
                     </tr>

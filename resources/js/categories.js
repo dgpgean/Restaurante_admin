@@ -1,7 +1,9 @@
 const btnNew = document.querySelector('#btnNew');
 const btnDelete = document.querySelectorAll('.btnDelete');
+const btnEdit = document.querySelectorAll('.btnEdit');
 const newUrl = document.querySelector('#category_new');
 const deleteUrl = document.querySelector('#category_delete');
+const updateUrl = document.querySelector('#category_update');
 //AJAX CADASTRO DE CATEGORIA
 
 btnNew.addEventListener('click', () => {
@@ -134,3 +136,67 @@ btnDelete.forEach(btn => {
 })
 
 
+//AJAX EDITAR CATEGORIA
+btnEdit.forEach(btn => {
+    btn.addEventListener('click', () => {
+        Swal.fire({
+            title: "Atualização de categoria",
+            input: "text",
+            inputValue:btn.value.split(',')[1],
+            inputAttributes: {
+                autocapitalize: "off",
+                placeholder: "Nome da Categoria",
+                name: 'name',
+                id: "nameCategory"
+            },
+            showCancelButton: true,
+            confirmButtonText: "Ataulizar",
+            cancelButtonText: "Cancelar",
+            showLoaderOnConfirm: true,
+            preConfirm: async (login) => {
+                try {
+                    const url = updateUrl.value + '/' +btn.value.split(',')[0]
+                    const data = {
+                        name: document.querySelector('#nameCategory').value
+                    }
+                    const response = await fetch(url, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            "X-CSRF-Token": document.querySelector('input[name=_token]').value
+                        },
+                        body: JSON.stringify(data),
+                    });
+
+                    if (!response.ok) {
+                        let error = await response.json()
+                        return Swal.showValidationMessage(`
+                        ${error.message}
+                    `)};
+
+
+                } catch (error) {
+                    alert(error)
+                    Swal.showValidationMessage(`
+                    Request failed: ${error}
+                `);
+                }
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Categoria ataulizada com sucesso!",
+                    showConfirmButton: true,
+                }).then(result => {
+                    if(result.isConfirmed){
+                        window.location.reload();
+                    }
+                  });
+            }
+        });
+    })
+
+})
