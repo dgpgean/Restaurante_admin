@@ -1,4 +1,4 @@
-@vite(['resources/css/products.css', 'resources/css/general.css', 'resources/js/products.js'])
+@vite(['resources/css/products.css', 'resources/css/app.css', 'resources/css/general.css', 'resources/js/products.js'])
 <script src="{{ asset('js/sweetalert.js') }}"></script>
 
 @extends('adminlte::page')

@@ -6,7 +6,9 @@
 button.form-control{
     margin: 33px 0 33px 0;
 }
-
+#preview_image{
+height: 100%;
+}
 form div{
     width: 70%;
 }
@@ -21,6 +23,7 @@ button:hover{
 
 #image-product{
     width: 140px;
+    height: 140px;
     border: solid 1px;
 }
 

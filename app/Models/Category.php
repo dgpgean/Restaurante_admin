@@ -19,13 +19,15 @@ class Category extends Model
         'name',
     ];
 
+
+
     public function createCategory(CategoryCreateDTO $dto, StoreAndUpdateCategory $request): stdClass|null
     {
         $category = $this->create((array) $dto);
         return (object) $category->toArray();
     }
 
-    public function getAll(string $filter = null, string $category = null): LengthAwarePaginator|null
+    public function getAllPaginate(string $filter = null): LengthAwarePaginator|null
     {
         $result = $this->when($filter, function ($query) use ($filter) {
             $query->where('name', 'like', "%$filter%");
@@ -34,6 +36,13 @@ class Category extends Model
         return $result;
     }
 
+
+    public function getAll(string $filter = null)
+    {
+        $result = $this->all();
+
+        return $result;
+    }
     public function deleteCategory(int $id = null,): stdClass|null
     {
         $result = $this->find($id);

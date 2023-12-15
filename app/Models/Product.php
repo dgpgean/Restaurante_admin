@@ -7,6 +7,7 @@ use App\Http\Requests\StoreAndUpdateProduct;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use stdClass;
 
@@ -17,11 +18,19 @@ class Product extends Model
 
     protected $fillable = [
         'name',
+        'code',
         'price',
         'image',
         'quantity',
+        'category',
+        'is_active',
         'infinite_stock'
     ];
+
+    public function category(): HasOne
+    {
+        return $this->hasOne(Category::class, 'id');
+    }
 
     public function createProduct(ProductCreateDTO $dto, StoreAndUpdateProduct $request): stdClass|null
     {

@@ -16,11 +16,10 @@
             <div>
                 <select
                     class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option selected>Categoria</option>
-                    <option value="US">United States</option>
-                    <option value="CA">Canada</option>
-                    <option value="FR">France</option>
-                    <option value="DE">Germany</option>
+                    <option selected value="0">Categoria</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
                 </select>
             </div>
             @csrf
@@ -33,27 +32,21 @@
 
 @section('content')
     <div id="body">
-        <table>
-            <thead>
-                <th>Código</th>
-                <th>Nome do produto</th>
-                <th>Preço</th>
-                <th>Categoria</th>
-                <th>Ações</th>
-            </thead>
-            <tbody>
-                @foreach ($products as $product)
-                    <tr>
-                        <th>00000000</th>
-                        <th>{{ $product->name }}</th>
-                        <th>{{ $product->price }}</th>
-                        <th>categoria de teste</th>
-                        <th>editar</th>
-                        <th>excluir</th>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+        <div class="cards flex gap-3 p-2">
+            @foreach ($products as $product)
+                <div class="card gap-2 flex flex-column justify-center items-center p-2">
+                    <span class="font-bold">{{ $product->name }}</span>
+                    <img id="preview_image" src="{{ url("$product->image") }}" width="225" height="225" alt="">
+                    <span>{{ $product->price }}</span>
+                    <div class="flex w-full gap-1 justify-around">
+                        @include('partials.button_edit', ['classes' => 'm-0'])
+                        @include('partials.button_delete')
+
+                    </div>
+
+                </div>
+            @endforeach
+        </div class="cards">
     </div>
     {{ $products->appends(request()->input())->links() }}
 @stop

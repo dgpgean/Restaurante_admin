@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.wrapper{
+    height: fit-content;
+}
+.btnEdit {
+    @apply bg-yellow-600 text-white rounded-md font-normal
+}
+
+
+.btnDelete {
+    @apply bg-red-600 text-white rounded-md font-normal
+}

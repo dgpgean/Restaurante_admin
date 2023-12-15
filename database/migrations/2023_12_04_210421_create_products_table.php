@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('image');
             $table->integer('quantity')->default(0);
             $table->integer('infinite_stock')->default(0);
+            $table->integer('isActive')->default(1);
             $table->timestamps();
         });
     }

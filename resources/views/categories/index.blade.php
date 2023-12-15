@@ -10,8 +10,8 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <x-alert-success />
     <h1>Categorias</h1>
+    <i class="fa fa-plus-circle text-blue-500" aria-hidden="true"></i>
     <button id="btnNew" class="text-blue-500">Adicionar categoria</button>
     <input type="hidden" id="category_new" value="{{ route('categories.new') }}">
     <input type="hidden" id="category_delete" value="{{ route('categories.delete', '') }}">
@@ -35,14 +35,14 @@
                 <th>Ações</th>
             </thead>
             <tbody>
-                @foreach ($categories as $category)
-                    <tr>
+                @foreach ($categories as $item => $category)
+                    <tr class="{{ $item % 2 == 0 ? 'bg-slate-200' : '' }}">
                         <th>{{ $category->id }}</th>
                         <th>{{ $category->name }}</th>
                         <th class="flex items-center gap-2">
-                            <button value="{{ $category->id . ',' . $category->name }}" href=""
-                                class="btnEdit">Editar</button>
-                            <button value="{{ $category->id }}" class="btnDelete">Excluir</button>
+                            @include('partials.button_edit', [
+                                'values' => $category->id . ',' . $category->name,
+                            ])
                         </th>
                     </tr>
                 @endforeach
@@ -50,10 +50,4 @@
         </table>
     </div>
     {{ $categories->appends(request()->input())->links() }}
-@stop
-
-
-@section('js')
-
-    <script></script>
 @stop

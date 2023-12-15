@@ -6,8 +6,38 @@
                 <label for="">Nome do Produto</label>
                 <input type="text" class="form-control" name="name" value="{{ $product->name ?? old('name') }}">
 
+                <label for="">Código do Produto</label>
+                <input type="text" class="form-control" name="code" value="{{ $product->code ?? old('code') }}">
+
                 <label for="">Preço</label>
                 <input type="number" class="form-control" name="price" value="{{ $product->price ?? old('price') }}">
+
+
+                <div class="flex gap-2 w-full">
+                    <div>
+                        <label for="">Categoria</label>
+                        <select
+                            class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            name="category">
+                            <option selected value="0">Categoria</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="">Status do produto</label>
+                        <select
+                            class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            name="isActive">
+                            <option selected value="1">Disponível</option>
+                            <option value="0">Indisponível</option>
+
+                        </select>
+                    </div>
+                </div>
+
             </div>
             <div id="image-product">
                 <img id="preview_image" src="{{ url('/products/not_image.jpg') }}" width="100%" height="144px"
@@ -15,6 +45,8 @@
             </div>
         </div>
     </div>
+
+
 
     <label for="">Imagem</label>
     <input type="file" class="form-control" id="product_image" name="image">

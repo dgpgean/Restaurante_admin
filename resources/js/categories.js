@@ -68,81 +68,15 @@ btnNew.addEventListener('click', () => {
 
 
 
-// AJAX CONFIRMAÇÃO DE EXCLUSÃO
-btnDelete.forEach(btn => {
-    btn.addEventListener('click', () => {
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-              confirmButton: "btn btn-success ml-2",
-              cancelButton: "btn btn-danger"
-            },
-            buttonsStyling: false
-          });
-          swalWithBootstrapButtons.fire({
-            title: "Deseja excluir essa categoria?",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Comfirmar",
-            cancelButtonText: "Cancelar",
-            reverseButtons: true
-          }).then((result) => {
-            if (result.isConfirmed) {
-                async function deleteCategory () {
-                    try {
-                        const url = deleteUrl.value + '/' + btn.value
-                        const response = await fetch(url, {
-                            method: 'DELETE',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Accept': 'application/json',
-                                'url': '/payment',
-                                "X-CSRF-Token": document.querySelector('input[name=_token]')
-                                    .value
-                            }
-                         });
-                        const result = await response.json();
-                        if (!result) {
-                            console.log(response)
-                            return
-                        }
-                        swalWithBootstrapButtons.fire({
-                            title: "Categoria excluída!",
-                            icon: "success"
-                          }).then(result => {
-                            if(result.isConfirmed){
-                                window.location.reload();
-                            }
-                          });
-                    } catch (error) {
-                        Swal.showValidationMessage(`
-                        Request failed: ${error}
-                    `);
-                    }
-                }
-                deleteCategory()
-            } else if (
-              /* Read more about handling dismissals below */
-              result.dismiss === Swal.DismissReason.cancel
-            ) {
-              swalWithBootstrapButtons.fire({
-                title: "Cancelado",
-                text: "Categoria não excluída",
-                icon: "error"
-              });
-
-            }
-          });
-    })
-})
-
-
 //AJAX EDITAR CATEGORIA
 btnEdit.forEach(btn => {
     btn.addEventListener('click', () => {
         Swal.fire({
             title: "Atualização de categoria",
             input: "text",
+            showCloseButton: true,
             inputValue:btn.value.split(',')[1],
+
             inputAttributes: {
                 autocapitalize: "off",
                 placeholder: "Nome da Categoria",
@@ -151,7 +85,8 @@ btnEdit.forEach(btn => {
             },
             showCancelButton: true,
             confirmButtonText: "Ataulizar",
-            cancelButtonText: "Cancelar",
+            cancelButtonText: "Excluir",
+            cancelButtonColor: "#d33",
             showLoaderOnConfirm: true,
             preConfirm: async (login) => {
                 try {
@@ -193,6 +128,69 @@ btnEdit.forEach(btn => {
                 }).then(result => {
                     if(result.isConfirmed){
                         window.location.reload();
+                    }
+                  });
+            }
+            else if (result.dismiss == 'cancel'){
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                      confirmButton: "btn btn-success ml-2",
+                      cancelButton: "btn btn-danger"
+                    },
+                    buttonsStyling: false
+                  });
+                  swalWithBootstrapButtons.fire({
+                    title: "Deseja excluir essa categoria?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Comfirmar",
+                    cancelButtonText: "Cancelar",
+                    reverseButtons: true
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                        async function deleteCategory () {
+                            try {
+                                const url = deleteUrl.value + '/' + btn.value.split(',')[0]
+                                const response = await fetch(url, {
+                                    method: 'DELETE',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'Accept': 'application/json',
+                                        'url': '/payment',
+                                        "X-CSRF-Token": document.querySelector('input[name=_token]')
+                                            .value
+                                    }
+                                 });
+                                const result = await response.json();
+                                if (!result) {
+                                    console.log(response)
+                                    return
+                                }
+                                swalWithBootstrapButtons.fire({
+                                    title: "Categoria excluída!",
+                                    icon: "success"
+                                  }).then(result => {
+                                    if(result.isConfirmed){
+                                        window.location.reload();
+                                    }
+                                  });
+                            } catch (error) {
+                                Swal.showValidationMessage(`
+                                Request failed: ${error}
+                            `);
+                            }
+                        }
+                        deleteCategory()
+                    } else if (
+                      /* Read more about handling dismissals below */
+                      result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                      swalWithBootstrapButtons.fire({
+                        title: "Cancelado",
+                        text: "Categoria não excluída",
+                        icon: "error"
+                      });
+
                     }
                   });
             }
